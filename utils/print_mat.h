@@ -1,0 +1,1 @@
+void print_flat_2d_mat(int m, int n, float* A);

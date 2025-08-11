@@ -1,0 +1,1 @@
+void write_binary(const char* filename, float* data, int size);
