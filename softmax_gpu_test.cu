@@ -16,7 +16,6 @@ float* allocate_and_init(int size) {
 }
 
 double benchmark_softmax(void (*softmax_fn)(float*, int, int), float* A, int B, long long int T, int runs) {
-    // Warmup runs (don't time these)
     printf("Warming up for B=%d, T=%lld...\n", B, T);
     for (int i = 0; i < 3; ++i) {
         softmax_fn(A, B, T);
@@ -42,7 +41,7 @@ double benchmark_softmax(void (*softmax_fn)(float*, int, int), float* A, int B, 
         cudaError_t err = cudaGetLastError();
         if (err != cudaSuccess) {
             printf("CUDA kernel launch error in run %d: %s\n", i, cudaGetErrorString(err));
-            continue; // Skip this run
+            continue; 
         }
         
         cudaEventRecord(stop);

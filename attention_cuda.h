@@ -17,16 +17,7 @@ void compute_output_cublas(
     int H
 );
 
-// void linear_layer_cublas(
-//     cublasHandle_t handle,
-//     float* input,       // (B, T, C)
-//     float* weights,     // (head_size, C)
-//     float* output,      // (B, T, head_size)
-//     int B,
-//     int T,
-//     int C,
-//     int head_size
-// );
+
 void linear_layer_cuda(
     float* input,       // (B, T, C)
     float* weights,     // (head_size, C)

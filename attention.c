@@ -82,7 +82,6 @@ void softmax(
 void compute_attention_weights_omp(float* q, float* k, float* attn,
     int B, int T, int head_size, float scale) {
         // q @ k.T scaled
-    // omp_set_num_threads(62);
     #pragma omp parallel for collapse(3)
     for (int b = 0; b < B; ++b) {
         for (int t1 = 0; t1 < T; ++t1) {

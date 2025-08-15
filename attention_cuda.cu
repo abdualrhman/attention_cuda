@@ -111,19 +111,16 @@ void softmax_crude_kernel(
     }
 }
 
-void softmax_crude_cuda(
-    float *A, 
-    int B, 
-    int T
-){
-    // input matrix of size (B * T * T)
-    // parallelize over batches 
-    int BLOCK_SIZE = 256;
-    int GRID_SIZE = (int) ceil(T/BLOCK_SIZE);
-
+void softmax_crude_cuda(float *A, int B, int T) {
+    int BLOCK_SIZE = min(256, T);  
+    int GRID_SIZE = (T + BLOCK_SIZE - 1) / BLOCK_SIZE;
+    
+    GRID_SIZE = min(GRID_SIZE, 65535);  
+    int B_limited = min(B, 65535);      
+    
     dim3 block(1, BLOCK_SIZE);
-    dim3 grid(1, GRID_SIZE, B);
-
+    dim3 grid(1, GRID_SIZE, B_limited);
+    
     softmax_crude_kernel<<<grid, block>>>(A, B, T);
 }
 
